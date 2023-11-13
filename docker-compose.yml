@@ -1,0 +1,20 @@
+version: "3.5"
+services:
+  postgresdb:
+    image: postgres
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: wtag
+  wtag-application:
+    build:
+      context: .
+    depends_on: [postgresdb]
+    ports:
+      - "8080:8080"
+    environment:
+      API_DB_USERNAME: postgres
+      API_DB_PASSWORD: postgres
+      API_DB_URL: postgresdb
+      API_FLYWAY_DB_USERNAME: postgres
+      API_FLYWAY_DB_PASSWORD: postgres

@@ -1,11 +1,11 @@
 FROM gradle AS build
 
-WORKDIR /apt/app/
+WORKDIR /opt/app/
 COPY . .
-RUN ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+RUN ./gradlew build -Dquarkus.package.type=uber-jar -x test
 
-FROM alpine:latest
+FROM openjdk:17
 WORKDIR /opt/app
-COPY --from=build ./build/wex-tag-1.0.0-SNAPSHOT-runner ./application
+COPY --from=build /opt/app/build/wex-tag-1.0.0-SNAPSHOT-runner.jar ./application.jar
 EXPOSE 8080
-ENTRYPOINT ["./application", "Dquarkus.http.host=0.0.0.0"]
+ENTRYPOINT ["java", "-jar", "application.jar", "-Dquarkus.http.host=0.0.0.0"]
