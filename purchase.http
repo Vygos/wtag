@@ -1,0 +1,11 @@
+POST http://localhost:8080/purchase
+Content-Type: application/json
+
+{
+  "description": "NVIDIA 4070 rtx",
+  "amount": 1350.5965,
+  "transactionDate": "2023-01-01"
+}
+
+### GET
+GET http://localhost:8080/purchase/{{id}}/currency/Brazil-Real/convert

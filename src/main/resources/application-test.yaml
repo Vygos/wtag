@@ -1,0 +1,27 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: postgres
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/test
+
+  hibernate-orm:
+    database:
+      generation: none
+
+  flyway:
+    enabled: true
+    active: true
+    jdbc-url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: postgres
+    baseline-on-migrate: true
+    migrate-at-start: true
+
+  rest-client:
+    treasury-api:
+      url: https://api.fiscaldata.treasury.gov
+
+  banner:
+    enabled: false
