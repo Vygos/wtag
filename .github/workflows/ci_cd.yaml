@@ -1,0 +1,27 @@
+name: CI/CD
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USERNAME: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+    steps:
+      - name: Unit and Integration Test
+        run: ./gradlew test
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Build native image
+        run: ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+      - name: Build docker image
+        run: docker build -f Dockerfile.native -t vygos/wtag
+      - name: Update image on docker registry
+        run: docker login --username vygos --password $DOCKER_PASSWORD && docker push vygos/wtag
+
+

@@ -1,0 +1,5 @@
+FROM ubuntu
+WORKDIR /opt/
+COPY ./build/wex-tag-*runner ./application
+EXPOSE 8080
+ENTRYPOINT ["./application"]
