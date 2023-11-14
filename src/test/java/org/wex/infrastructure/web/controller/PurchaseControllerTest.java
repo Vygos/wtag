@@ -86,7 +86,6 @@ public class PurchaseControllerTest {
     }
 
     @Test
-    @Transactional
     void shouldReturn200OKWhenHaveExchangeRateValueAvailable() {
         UUID[] purchaseId = new UUID[1];
         QuarkusTransaction.requiringNew().run(() -> {
