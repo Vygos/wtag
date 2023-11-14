@@ -42,6 +42,6 @@ jobs:
       - name: Build docker image
         run: docker build -f Dockerfile.native -t vygos/wtag .
       - name: Update image on docker registry
-        run: echo $DOCKER_PASSWORD | docker login --username vygos --password-stdin && docker push vygos/wtag
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username vygos --password-stdin && docker push vygos/wtag
 
 
