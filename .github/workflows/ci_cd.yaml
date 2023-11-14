@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:14
+        image: postgres:12
         env:
           POSTGRES_USERNAME: postgres
           POSTGRES_PASSWORD: postgres
@@ -21,6 +21,7 @@ jobs:
       - name: Unit and Integration Test
         run: ./gradlew test
   build:
+    needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
